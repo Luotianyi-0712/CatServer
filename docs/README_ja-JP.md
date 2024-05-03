@@ -56,6 +56,27 @@ cd DanhengServer
 .\dotnet build # コンパイル
 ```
 
+##### Linux （Ubuntu20.04）
+- インストール環境
+```shell
+# Microsoftパッケージリポジトリの追加
+wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+
+# SDKのインストール
+sudo apt-get update && \
+  sudo apt-get install -y dotnet-sdk-8.0
+```
+
+- 環境をコンパイルして実行する
+```shell
+git clone --recurse-submodules https://github.com/StopWuyu/DanhengServer.git
+cd DanhengServer
+.\dotnet build # コンパイル
+./Gameserver
+```
+
 ## ❓ヘルプ
 
 - アンドロイドシステムのサポート
