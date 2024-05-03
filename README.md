@@ -41,6 +41,12 @@
 
 Danheng server is built using Dotnet
 
+- Download the executable file in [Action](https://github.com/StopWuyu/DanhengServer/actions) or build it by urself
+- Unzip it to a single folder
+- Download the Dim's Resources and LunarCore's Resources.Do it as well as LunarCore
+- Download the file in Config folder in this repo(Preparing),And move the files to Config/ folder
+- Run it.
+
 **Requirement: **
 
 - [.NET](https://dotnet.microsoft.com/)
