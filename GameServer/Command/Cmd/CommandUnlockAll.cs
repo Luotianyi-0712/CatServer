@@ -1,5 +1,7 @@
 ﻿using EggLink.DanhengServer.Data;
+using EggLink.DanhengServer.Database;
 using EggLink.DanhengServer.Game.Scene.Entity;
+using EggLink.DanhengServer.Proto;
 using EggLink.DanhengServer.Server.Packet.Send.Player;
 
 namespace EggLink.DanhengServer.Command.Cmd
@@ -36,6 +38,17 @@ namespace EggLink.DanhengServer.Command.Cmd
             foreach (var mission in GameData.MainMissionData.Values)
             {
                 missionManager.Data.MainMissionInfo[mission.MainMissionID] = Enums.MissionPhaseEnum.Finish;
+            }
+
+            if (player.Data.CurrentGender == Gender.Man)
+            {
+                player.Data.CurrentGender = Gender.Man;
+                player.Data.CurBasicType = 8001;
+            } else
+            {
+                player.Data.CurrentGender = Gender.Woman;
+                player.Data.CurBasicType = 8002;
+                player.AvatarManager!.GetHero()!.HeroId = 8002;
             }
 
             arg.SendMsg("All missions unlocked!");

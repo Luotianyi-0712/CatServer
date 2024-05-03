@@ -49,6 +49,7 @@ namespace EggLink.DanhengServer.Game.Friend
 
             var targetPlayer = Listener.GetActiveConnection(targetUid);
             targetPlayer?.SendPacket(new PacketSyncApplyFriendScNotify(Player.Data));
+            targetPlayer?.Player!.FriendManager!.FriendData.ReceiveApplyList.Add(Player.Uid);
 
             DatabaseHelper.Instance!.UpdateInstance(FriendData);
             DatabaseHelper.Instance!.UpdateInstance(target);
@@ -88,6 +89,9 @@ namespace EggLink.DanhengServer.Game.Friend
             var targetData = PlayerData.GetPlayerByUid(targetUid)!;
             var targetPlayer = Listener.GetActiveConnection(targetUid);
             targetPlayer?.SendPacket(new PacketSyncHandleFriendScNotify(Player.Uid, true, Player.Data));
+            targetPlayer?.Player!.FriendManager!.FriendData.SendApplyList.Remove(Player.Uid);
+            targetPlayer?.Player!.FriendManager!.FriendData.FriendList.Add(Player.Uid);
+
             Player.SendPacket(new PacketSyncHandleFriendScNotify((uint)targetData.Uid, true, targetData));
 
             return targetData;
@@ -108,6 +112,9 @@ namespace EggLink.DanhengServer.Game.Friend
 
             FriendData.ReceiveApplyList.Remove(targetUid);
             target.SendApplyList.Remove(Player.Uid);
+
+            var targetPlayer = Listener.GetActiveConnection(targetUid);
+            targetPlayer?.Player!.FriendManager!.FriendData.SendApplyList.Remove(Player.Uid);
 
             DatabaseHelper.Instance!.UpdateInstance(FriendData);
             DatabaseHelper.Instance!.UpdateInstance(target);
@@ -322,6 +329,7 @@ namespace EggLink.DanhengServer.Game.Friend
                     IsBanned = false,
                     Level = (uint)serverProfile.Level,
                     Nickname = serverProfile.Name,
+                    ChatBubbleId = (uint)serverProfile.ChatBubbleId,
                     OnlineStatus = FriendOnlineStatus.Online,
                     Platform = PlatformType.Pc,
                     Signature = "DanhengServer command executor",

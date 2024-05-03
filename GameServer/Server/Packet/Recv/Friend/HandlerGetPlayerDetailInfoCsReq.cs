@@ -32,6 +32,7 @@ namespace EggLink.DanhengServer.Server.Packet.Recv.Friend
                         Level = serverProfile.Level,
                         WorldLevel = 0,
                         Name = serverProfile.Name,
+                        ChatBubble = serverProfile.ChatBubbleId
                     };
                 }
                 else

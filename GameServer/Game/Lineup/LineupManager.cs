@@ -189,6 +189,10 @@ namespace EggLink.DanhengServer.Game.Lineup
                 LineupData.Lineups.Add(lineupIndex, lineup);
             } else
             {
+                if (lineup.BaseAvatars!.Count >= 4)
+                {
+                    return;
+                }
                 lineup.BaseAvatars?.Add(new() { BaseAvatarId = avatarId });
                 LineupData.Lineups[lineupIndex] = lineup;
             }

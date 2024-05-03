@@ -87,6 +87,7 @@ namespace EggLink.DanhengServer.Database.Player
                 HeadIcon = (uint)HeadIcon,
                 Platform = PlatformType.Pc,
                 LastActiveTime = LastActiveTime,
+                ChatBubbleId = (uint)ChatBubble
             };
 
             var pos = 0;
