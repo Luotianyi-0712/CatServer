@@ -77,7 +77,7 @@ cd DanhengServer
 ./Gameserver
 ```
 **他のシステムバージョンはMicrosoftに表示してください**
-- [Microsoftのチュートリアル]([https://git-scm.com/downloads](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.204-linux-x64-binaries))
+- [Microsoftのチュートリアル](https://dotnet.microsoft.com/zh-cn/download/dotnet/thank-you/sdk-8.0.204-linux-x64-binaries)
 
 ## ❓ヘルプ
 
