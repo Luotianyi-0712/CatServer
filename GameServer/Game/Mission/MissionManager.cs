@@ -67,6 +67,13 @@ namespace EggLink.DanhengServer.Game.Mission
                 mission.MissionInfo?.SubMissionList.ForEach(x=> AcceptSubMission(x.ID));
                 mission.MissionInfo?.SubMissionList.ForEach(x => FinishSubMission(x.ID));
             }
+
+            if (missionId == 1000400)
+            {
+                Player.AddAvatar(1003);
+                Player.LineupManager!.AddAvatarToCurTeam(1003);
+            }
+
             return list;
         }
 
@@ -264,6 +271,11 @@ namespace EggLink.DanhengServer.Game.Mission
                 Player.AvatarManager!.GetHero()!.HeroId += 2;
                 DatabaseHelper.Instance?.UpdateInstance(Player.AvatarManager!.AvatarData);
                 Player.SendPacket(new PacketPlayerSyncScNotify(Player.AvatarManager!.GetHero()!));
+            }
+
+            if (missionId == 100040117 || missionId == 100040118)
+            {
+                FinishSubMission(100040119);
             }
         }
 

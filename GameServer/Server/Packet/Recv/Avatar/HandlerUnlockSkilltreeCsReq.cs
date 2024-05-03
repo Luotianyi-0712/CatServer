@@ -34,8 +34,9 @@ namespace EggLink.DanhengServer.Server.Packet.Recv.Avatar
             {
                 connection.Player!.InventoryManager!.RemoveItem((int)cost.PileItem.ItemId, (int)cost.PileItem.ItemNum);
             }
-            avatar.SkillTree.TryGetValue((int)req.PointId, out var level);
-            avatar.SkillTree[(int)req.PointId] = level + (int)req.Level;
+
+            avatar.GetSkillTree().TryGetValue((int)req.PointId, out var level);
+            avatar.GetSkillTree()[(int)req.PointId] = level + (int)req.Level;
             DatabaseHelper.Instance!.UpdateInstance(player.AvatarManager.AvatarData!);
 
             connection.SendPacket(new PacketPlayerSyncScNotify(avatar));

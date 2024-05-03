@@ -19,7 +19,7 @@ namespace EggLink.DanhengServer.Server.Packet.Send.Friend
                 {
                     ApplyTime = Extensions.GetUnixSec(),
                     PlayerInfo = player.ToSimpleProto(FriendOnlineStatus.Online),
-                }
+                },
             };
 
             SetData(proto);

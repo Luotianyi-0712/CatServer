@@ -24,11 +24,17 @@ namespace EggLink.DanhengServer.Server.Packet.Recv.Player
                 player.Data.CurBasicType = 8002;
                 player.Data.CurrentGender = Gender.Woman;
                 DatabaseHelper.Instance?.UpdateInstance(player.Data);
+
+                player.AvatarManager!.GetHero()!.HeroId = 8002;
+                DatabaseHelper.Instance!.UpdateInstance(player.AvatarManager!.AvatarData);
             } else
             {
                 player.Data.CurBasicType = 8001;
                 player.Data.CurrentGender = Gender.Man;
                 DatabaseHelper.Instance?.UpdateInstance(player.Data);
+
+                player.AvatarManager!.GetHero()!.HeroId = 8001;
+                DatabaseHelper.Instance!.UpdateInstance(player.AvatarManager!.AvatarData);
             }
             player.LineupManager!.AddAvatarToCurTeam(8001);
             player.LineupManager!.AddAvatarToCurTeam(1001);
