@@ -8,42 +8,42 @@
 <a href="https://www.gnu.org/"><img src="https://img.shields.io/badge/GNU-000000.svg?style=for-the-badge&logo=GNU&logoColor=white" /></a>
 </p>
 <p align="center">
-<a href="https://discord.gg/xRtZsmHBVj"><img src="https://img.shields.io/badge/Discord%20Server-000000.svg?style=for-the-badge&logo=Discord&logoColor=white" /></a>
+  <a href="https://discord.gg/xRtZsmHBVj"><img src="https://img.shields.io/badge/Discord%20Server-000000.svg?style=for-the-badge&logo=Discord&logoColor=white" /></a>
 </p>
 
 [EN](../README.md) | [簡中](README_zh-CN.md) | [繁中](README_zh-CN.md) | [JP](README_ja-JP.md)
 
 ## 💡機能
 
--[√]**ショップ**
--[√]**編隊**
--[√]**ドロー**-カスタム確率:)
--[√]**バトル**-シーンスキルに誤りがある
--[√]**シーン**-歩行シミュレータ、インタラクティブ、正確なエンティティロード
--[√]**基本的な役割育成**-小さなバグがあり、体験に影響を与えません
--[√]**タスク**-男性の多くのタスクを完了しています。女性を選択すると、特定のタスクに引っかかり、修復が必要になる可能性があります
--[-]**友人**-開発中…
--[-]**模擬宇宙**-開発中…
+- [√] **ストア機能**
+- [√] **チームを編成する**
+- [√] **ドロー** - カスタム可能な確率: )
+- [√] **と戦う** - シーンスキルにいくつかのエラーがあります
+- [√] **シーン** - 歩行シミュレータ、インタラクティブ、正確なエンティティロード
+- [√] **基本的な役割育成** - ちょっとバグがありますが、影響はあまりありません
+- [√] **タスク＃タスク＃** - 男性の多くのタスクを完了しています。女性を選択すると、特定のタスクに引っかかり、修復が必要になる可能性があります
+- [-] **交友機能** - 开发中...
+- [-] **模擬宇宙** - 开发中...
 
--[]**詳細**-Comming soon...
+- [ ] **詳細**  - Comming soon...
 
 ## 🍗使用&インストール
 
-#####クイックスタート
+### クイックスタート
 
-1.［Action］（https://github.com/StopWuyu/DanhengServer/actions）実行可能ファイルのダウンロード
-2.ダウンロードが完了した `DanhengServer.zip`を開いて任意のフォルダ__*を展開するには、英語のパス*__
+1. [Action](https://github.com/StopWuyu/DanhengServer/actions) で実行可能ファイルをダウンロードする
+2. ダウンロードが完了した` DanhengServer.zip `を開いて任意のフォルダに解凍します __*英文パスが望ましい*__
 
-> （オプション）ソースコードのWebServerフォルダに「certificate.p 12」をダウンロードすることで、HTTPSモードで起動することで、転送をより安全にすることができます：）
+> (オプション) ソースコードのWebServerフォルダに` certificate.p 12 `をダウンロードすることで、HTTPSモードで起動して転送をより安全にすることができます: )
 
-3.GameServer.exeを実行する
-4.エージェントを実行してゲームリンクを起動し、楽しむ！
+3. GameServer.exeの実行
+4. エージェント起動ゲームの実行
 
-#####構築
+### 構築＃コウチク＃
 
 Danhengserver Dotnetを使用した構築
 
-**前面：**
+**プリソフトウェア：**
 
 - [.NET](https://dotnet.microsoft.com/)
 - [Git](https://git-scm.com/downloads)
@@ -53,21 +53,20 @@ Danhengserver Dotnetを使用した構築
 ```shell
 git clone --recurse-submodules https://github.com/StopWuyu/DanhengServer.git
 cd DanhengServer
-. dotnet build#コンパイル
+.\dotnet build # コンパイル
 ```
 
 ## ❓ヘルプ
 
--アンドロイドシステム対応
--100040119（自動完了できません）（修復用に/mission finish 100040119を使用）
+- アンドロイドシステムのサポート
+- 100040119（自動完了できません）（/mission finish 100040119 を使用した修正）
 
 ## ❕️トラブルシューティング
 
-よくある問題の解決策を入手したり、ヘルプを探したりするには、［デルのDiscordサーバ］（https://discord.gg/xRtZsmHBVj)
+一般的な問題の解決策を入手するか、ヘルプを参照してください。[デルのDiscordサーバ](https://discord.gg/xRtZsmHBVj)
 
 ## 🙌に感謝
 
--Weedwacker-kcp実装の提供
-
-- [SqlSugar](https://github.com/donet5/SqlSugar）-ORMを提供
-- [LunarCore](https://github.com/Melledy/LunarCore)-いくつかのデータ構造とアルゴリズム
+- Weedwacker - kcp実装の提供
+- [SqlSugar](https://github.com/donet5/SqlSugar) - ORMの提供
+- [LunarCore](https://github.com/Melledy/LunarCore) - いくつかのデータ構造とアルゴリズム
