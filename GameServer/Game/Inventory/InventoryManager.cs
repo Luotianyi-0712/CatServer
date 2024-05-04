@@ -503,6 +503,10 @@ namespace EggLink.DanhengServer.Game.Inventory
             return list;
         }
 
+        #endregion
+
+        #region Levelup
+
         public List<ItemData> LevelUpEquipment(int equipmentUniqueId, ItemCostData item)
         {
             var itemData = Data.EquipmentItems.Find(x => x.UniqueId == equipmentUniqueId);
@@ -600,6 +604,143 @@ namespace EggLink.DanhengServer.Game.Inventory
             }
             Player.SendPacket(new PacketPlayerSyncScNotify(itemData));
             return list;
+        }
+
+        public List<ItemData> LevelUpRelic(int uniqueId, ItemCostData costData)
+        {
+            var relicItem = Data.RelicItems.Find(x => x.UniqueId == uniqueId);
+            if (relicItem == null) return [];
+
+            var exp = 0;
+            var money = 0;
+            foreach (var cost in costData.ItemList)
+            {
+                if (cost.PileItem != null)
+                {
+                    GameData.RelicExpItemData.TryGetValue((int)cost.PileItem.ItemId, out var excel);
+                    if (excel != null)
+                    {
+                        exp += excel.ExpProvide * (int)cost.PileItem.ItemNum;
+                        money += excel.CoinCost * (int)cost.PileItem.ItemNum;
+                    }
+
+                    RemoveItem((int)cost.PileItem.ItemId, (int)cost.PileItem.ItemNum);
+                } else if (cost.RelicUniqueId != 0)
+                {
+                    var costItem = Data.RelicItems.Find(x => x.UniqueId == cost.RelicUniqueId);
+                    if (costItem != null)
+                    {
+                        GameData.RelicConfigData.TryGetValue(costItem.ItemId, out var costExcel);
+                        if (costExcel == null) continue;
+
+                        if (costItem.Level > 0) 
+                        {
+                            foreach (var level in Enumerable.Range(0, costItem.Level))
+                            {
+                                GameData.RelicExpTypeData.TryGetValue(costExcel.ExpType * 100 + level, out var typeExcel);
+                                if (typeExcel != null)
+                                    exp += typeExcel.Exp;
+                            }
+                        } else
+                        {
+                            exp += costExcel.ExpProvide;
+                        }
+                        exp += costItem.Exp;
+                        money += costExcel.CoinCost;
+
+                        RemoveItem(costItem.ItemId, 1, (int)cost.RelicUniqueId);
+                    }
+                }
+            }
+
+            // credit
+            RemoveItem(2, money);
+
+            // level up
+            GameData.RelicConfigData.TryGetValue(relicItem.ItemId, out var relicExcel);
+            if (relicExcel == null) return [];
+
+            GameData.RelicExpTypeData.TryGetValue(relicExcel.ExpType * 100 + relicItem.Level, out var relicType);
+            do
+            {
+                if (relicType == null) break;
+                int toGain;
+                if (relicItem.Exp + exp >= relicType.Exp)
+                {
+                    toGain = relicType.Exp - relicItem.Exp;
+                }
+                else
+                {
+                    toGain = exp;
+                }
+                relicItem.Exp += toGain;
+                exp -= toGain;
+
+                // level up
+                if (relicItem.Exp >= relicType.Exp)
+                {
+                    relicItem.Exp = 0;
+                    relicItem.Level++;
+                    GameData.RelicExpTypeData.TryGetValue(relicExcel.ExpType * 100 + relicItem.Level, out relicType);
+                    // relic attribute
+                    if (relicItem.Level % 3 == 0)
+                    {
+                        if (relicItem.SubAffixes.Count >= 4)
+                        {
+                            relicItem.IncreaseRandomRelicSubAffix();
+                        }
+                        else
+                        {
+                            relicItem.AddRandomRelicSubAffix();
+                        }
+                    }
+                }
+            } while (exp > 0 && relicType?.Exp > 0 && relicItem.Level < relicExcel.MaxLevel);
+
+            // leftover
+            Dictionary<int, ItemData> list = [];
+            var leftover = exp;
+            while (leftover > 0)
+            {
+                var gain = false;
+                foreach (var expItem in GameData.RelicExpItemData.Values.Reverse())
+                {
+                    if (leftover >= expItem.ExpProvide)
+                    {
+                        // add
+                        PutItem(expItem.ItemID, 1);
+                        if (list.TryGetValue(expItem.ItemID, out var i))
+                        {
+                            i.Count++;
+                        } else
+                        {
+                            i = new ItemData()
+                            {
+                                ItemId = expItem.ItemID,
+                                Count = 1
+                            };
+                            list[expItem.ItemID] = i;
+                        }
+                        leftover -= expItem.ExpProvide;
+                        gain = true;
+                        break;
+                    }
+                }
+                if (!gain)
+                {
+                    break;  // no more item
+                }
+            }
+            if (list.Count > 0)
+            {
+                Player.SendPacket(new PacketPlayerSyncScNotify(list.Values.ToList()));
+            }
+            DatabaseHelper.Instance!.UpdateInstance(Data);
+
+            // sync
+            Player.SendPacket(new PacketPlayerSyncScNotify(relicItem));
+
+            return [.. list.Values];
         }
 
         public void RankUpAvatar(int baseAvatarId, ItemCostData costData)

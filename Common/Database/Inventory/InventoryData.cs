@@ -72,11 +72,21 @@ namespace EggLink.DanhengServer.Database.Inventory
                 return;
             }
 
+            var rollPool = new List<RelicSubAffixConfigExcel>();
+            foreach (var affix in affixes.Values)
+            {
+                if (SubAffixes.Find(x => x.Id == affix.AffixID) == null)
+                {
+                    rollPool.Add(affix);
+                }
+            }
+
             for (int i = 0; i < count; i++)
             {
-                var affixConfig = affixes.Values.ToList().RandomElement();
+                var affixConfig = rollPool.RandomElement();
                 ItemSubAffix subAffix = new(affixConfig, 1);
                 SubAffixes.Add(subAffix);
+                rollPool.Remove(affixConfig);
             }
         }
 
@@ -101,6 +111,7 @@ namespace EggLink.DanhengServer.Database.Inventory
                 UniqueId = (uint)UniqueId,
                 Level = (uint)Level,
                 IsProtected = Locked,
+                Exp = (uint)Exp,
                 IsDiscarded = Discarded,
                 BaseAvatarId = (uint)EquipAvatar,
                 MainAffixId = (uint)MainAffix,
@@ -215,7 +226,7 @@ namespace EggLink.DanhengServer.Database.Inventory
         public void IncreaseStep(int stepNum)
         {
             Count++;
-            Step += Extensions.RandomInt(0, stepNum);
+            Step += Extensions.RandomInt(0, stepNum + 1);
         }
 
         public RelicAffix ToProto() => new()

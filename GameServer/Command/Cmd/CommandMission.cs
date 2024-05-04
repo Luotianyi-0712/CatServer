@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 
 namespace EggLink.DanhengServer.Command.Cmd
 {
@@ -55,21 +56,82 @@ namespace EggLink.DanhengServer.Command.Cmd
             }
 
             var mission = arg.Target!.Player!.MissionManager!;
-            var runningMissions = mission.GetRunningSubMissionIdList();
+            var runningMissions = mission.GetRunningSubMissionList();
             if (runningMissions.Count == 0)
             {
                 arg.SendMsg("No running missions.");
                 return;
             }
 
-            var sb = new StringBuilder();
-            sb.AppendLine("Running missions:");
-            foreach (var missionId in runningMissions)
+            arg.SendMsg("Running missions:");
+            Dictionary<int, List<int>> map = [];
+
+            foreach (var m in runningMissions)
             {
-                sb.AppendLine(missionId.ToString());
+                if (!map.TryGetValue(m.MainMissionID, out List<int>? value))
+                {
+                    value = ([]);
+                    map[m.MainMissionID] = value;
+                }
+
+                value.Add(m.ID);
             }
 
-            arg.SendMsg(sb.ToString());
+            var possibleStuckIds = new List<int>();
+            var morePossibleStuckIds = new List<int>();
+
+            foreach (var list in map)
+            {
+                arg.SendMsg($"Main mission {list.Key}:");
+                var sb = new StringBuilder();
+                foreach (var id in list.Value)
+                {
+                    sb.Append($"{id}, ");
+
+                    if (id.ToString().StartsWith("10"))
+                    {
+                        possibleStuckIds.Add(id);
+
+                        var info = mission.GetSubMissionInfo(id);
+                        if (info != null && info.FinishType == Enums.MissionFinishTypeEnum.PropState)
+                        {
+                            morePossibleStuckIds.Add(id);
+                        }
+                    }
+                }
+
+                sb.Remove(sb.Length - 2, 2);
+
+                arg.SendMsg(sb.ToString());
+            }
+
+            if (morePossibleStuckIds.Count > 0)
+            {
+                arg.SendMsg("You might be stuck in missions below:");
+
+                var sb = new StringBuilder();
+                foreach (var id in morePossibleStuckIds)
+                {
+                    sb.Append($"{id}, ");
+                }
+
+                sb.Remove(sb.Length - 2, 2);
+
+                arg.SendMsg(sb.ToString());
+            } else if (possibleStuckIds.Count > 0)
+            {
+                arg.SendMsg("You might be stuck in missions below:");
+
+                var sb = new StringBuilder();
+                foreach (var id in possibleStuckIds)
+                {
+                    sb.Append($"{id}, ");
+                }
+
+                sb.Remove(sb.Length - 2, 2);
+
+                arg.SendMsg(sb.ToString());
+            }
         }
     }
 }
