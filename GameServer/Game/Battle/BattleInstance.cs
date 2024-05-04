@@ -3,6 +3,7 @@ using EggLink.DanhengServer.Data.Excel;
 using EggLink.DanhengServer.Database;
 using EggLink.DanhengServer.Database.Avatar;
 using EggLink.DanhengServer.Database.Inventory;
+using EggLink.DanhengServer.Enums.Item;
 using EggLink.DanhengServer.Game.Player;
 using EggLink.DanhengServer.Game.Scene;
 using EggLink.DanhengServer.Game.Scene.Entity;
@@ -53,6 +54,54 @@ namespace EggLink.DanhengServer.Game.Battle
             foreach (var item in MonsterDropItems)
             {
                 list.ItemList_.Add(item.ToProto());
+            }
+
+            // calculate drops
+            GameData.MappingInfoData.TryGetValue(MappingInfoId * 10 + WorldLevel, out var mapping);
+            if (mapping != null)
+            {
+                List<ItemData> items = [];
+                foreach (var item in mapping.DropItemList)
+                {
+                    var random = Random.Shared.Next(0, 101);
+                    if (random <= item.Chance)
+                    {
+                        var amount = item.ItemNum > 0 ? item.ItemNum : Random.Shared.Next(item.MinCount, item.MaxCount + 1);
+
+                        GameData.ItemConfigData.TryGetValue(item.ItemID, out var itemData);
+                        if (itemData == null) continue;
+
+                        if (itemData.ItemMainType == ItemMainTypeEnum.Relic || itemData.ItemMainType == ItemMainTypeEnum.Equipment)
+                        {
+                            for (int i = 0; i < amount; i++)
+                            {
+                                items.Add(new ItemData()
+                                {
+                                    ItemId = item.ItemID,
+                                    Count = 1,
+                                });
+                            }
+                        }
+                        else
+                        {
+                            items.Add(new ItemData()
+                            {
+                                ItemId = item.ItemID,
+                                Count = amount,
+                            });
+                        }
+                    }
+                }
+
+
+                foreach (var item in items)
+                {
+                    var i = Player.InventoryManager!.AddItem(item.ItemId, item.Count, false, false)!;
+                    i.Count = item.Count;  // return the all thing
+                    list.ItemList_.Add(i.ToProto());
+                }
+
+                DatabaseHelper.Instance!.UpdateInstance(Player.InventoryManager!.Data);
             }
 
             return list;

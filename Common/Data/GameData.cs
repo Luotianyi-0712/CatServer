@@ -78,6 +78,7 @@ namespace EggLink.DanhengServer.Data
 
         #region Items
 
+        public static Dictionary<int, MappingInfoExcel> MappingInfoData { get; private set; } = [];
         public static Dictionary<int, ItemConfigExcel> ItemConfigData { get; private set; } = [];
         public static Dictionary<int, EquipmentConfigExcel> EquipmentConfigData { get; private set; } = [];
         public static Dictionary<int, EquipmentExpTypeExcel> EquipmentExpTypeData { get; private set; } = [];
@@ -86,6 +87,8 @@ namespace EggLink.DanhengServer.Data
         public static Dictionary<int, Dictionary<int, RelicMainAffixConfigExcel>> RelicMainAffixData { get; private set; } = [];  // groupId, affixId
         public static Dictionary<int, Dictionary<int, RelicSubAffixConfigExcel>> RelicSubAffixData { get; private set; } = [];  // groupId, affixId
         public static Dictionary<int, RelicConfigExcel> RelicConfigData { get; private set; } = [];
+        public static Dictionary<int, RelicExpItemExcel> RelicExpItemData { get; private set; } = [];
+        public static Dictionary<int, RelicExpTypeExcel> RelicExpTypeData { get; private set; } = [];
 
         #endregion
 
