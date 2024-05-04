@@ -77,6 +77,17 @@ namespace EggLink.DanhengServer.Game.Mission
             return list;
         }
 
+        public List<Proto.MissionSync?> ReAcceptMainMission(int missionId, bool sendPacket = true)
+        {
+            if (!ConfigManager.Config.ServerOption.EnableMission) return [];
+            if (!Data.MissionInfo.TryGetValue(missionId, out _)) return [];
+
+            Data.MissionInfo.Remove(missionId);
+            Data.MainMissionInfo.Remove(missionId);
+
+            return AcceptMainMission(missionId, sendPacket);
+        }
+
         public void AcceptSubMission(int missionId)
         {
             if (!ConfigManager.Config.ServerOption.EnableMission) return;

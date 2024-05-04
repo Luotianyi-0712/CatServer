@@ -13,7 +13,7 @@ namespace EggLink.DanhengServer.Database
         public ConfigContainer config = ConfigManager.Config;
         public static SqlSugarScope? sqlSugarScope;
         public static DatabaseHelper? Instance;
-        private static readonly object _lock = new();
+        private static readonly Dictionary<int, object> _lock = [];
 
         public DatabaseHelper()
         {
@@ -30,6 +30,7 @@ namespace EggLink.DanhengServer.Database
             });
             Instance = this;
         }
+
         public void Initialize()
         {
             logger.Info("Initializing database...");
@@ -42,6 +43,16 @@ namespace EggLink.DanhengServer.Database
                     logger.Error("Unsupported database type");
                     break;
             }
+        }
+
+        public object GetLock(int uid)
+        {
+            if (!_lock.TryGetValue(uid, out object? value))
+            {
+                value = new();
+                _lock[uid] = value;
+            }
+            return value;
         }
 
         public static void InitializeSqlite()
@@ -70,7 +81,7 @@ namespace EggLink.DanhengServer.Database
         {
             try
             {
-                lock (_lock)
+                lock (GetLock((int)uid))
                 {
                     return sqlSugarScope?.Queryable<T>().Where(it => (it as BaseDatabaseData)!.Uid == uid).First();
                 }
@@ -98,10 +109,7 @@ namespace EggLink.DanhengServer.Database
         {
             try
             {
-                lock (_lock)
-                {
-                    return sqlSugarScope?.Queryable<T>().ToList();
-                }
+                return sqlSugarScope?.Queryable<T>().ToList();
             } catch(Exception e)
             {
                 logger.Error("Unsupported type", e);
@@ -111,7 +119,7 @@ namespace EggLink.DanhengServer.Database
 
         public void SaveInstance<T>(T instance) where T : class, new()
         {
-            lock (_lock)
+            lock (GetLock((instance as BaseDatabaseData)!.Uid))
             {
                 sqlSugarScope?.Insertable(instance).ExecuteCommand();
             }
@@ -119,7 +127,7 @@ namespace EggLink.DanhengServer.Database
 
         public void UpdateInstance<T>(T instance) where T : class, new()
         {
-            lock (_lock)
+            lock (GetLock((instance as BaseDatabaseData)!.Uid))
             {
                 sqlSugarScope?.Updateable(instance).ExecuteCommand();
             }
@@ -127,7 +135,7 @@ namespace EggLink.DanhengServer.Database
 
         public void DeleteInstance<T>(T instance) where T : class, new()
         {
-            lock (_lock)
+            lock (GetLock((instance as BaseDatabaseData)!.Uid))
             {
                 sqlSugarScope?.Deleteable(instance).ExecuteCommand();
             }

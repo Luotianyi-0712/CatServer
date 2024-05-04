@@ -14,8 +14,8 @@ namespace EggLink.DanhengServer.Enums.Scene
         Train = 3,
         Challenge = 4,
         Rogue = 5,
-        Raid = 6,
-        AetherDivide = 7,
-        TrialActivity = 8
+        Raid = 8,
+        AetherDivide = 15,
+        TrialActivity = 14
     }
 }
