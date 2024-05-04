@@ -31,9 +31,9 @@ namespace EggLink.DanhengServer.Proto {
             "TkNQGJICIAEoCRIUCgtIUExNRktQTE9HRxjoCyABKAkSFAoLQ0VDS0pJUE9E",
             "TE0Y2gcgASgJEhUKDXN0b3BfZW5kX3RpbWUYBCABKAMSFAoLTERLTUVFTFBP",
             "REMY6wogASgJEhcKD2V4X3Jlc291cmNlX3VybBgGIAEoCRIRCghpZml4X3Vy",
-            "bBivBSABKAkSFAoLTkhNS0ZEQ0FCTkUY/A8gASgIEhMKC0ZPRUlMREdDQ0hD",
+            "bBiWASABKAkSFAoLTkhNS0ZEQ0FCTkUY/A8gASgIEhMKC0ZPRUlMREdDQ0hD",
             "GAIgASgJEhQKC0RGTUZCSElNTEJLGLAMIAEoCRITCgtGSE5JRkFGTkNPRhgJ",
-            "IAEoDRIVCgxpZml4X3ZlcnNpb24YlgEgASgJEgsKAmIzGOYCIAEoCBITCgtI",
+            "IAEoDRIVCgxpZml4X3ZlcnNpb24YrwUgASgJEgsKAmIzGOYCIAEoCBITCgtI",
             "UExQQU9OREtETBhZIAEoCBIXCg9zdG9wX2JlZ2luX3RpbWUYDSABKAMSFAoL",
             "SE9LS0NOSk5ESk0YrQIgASgJEgsKAmI2GOAIIAEoCBILCgJiNRjAByABKAgS",
             "FAoLSkFLT0hHSExPS0wYhw4gASgIEgsKA21zZxgIIAEoCRIUCgtMUE9KSExO",
@@ -314,7 +314,7 @@ namespace EggLink.DanhengServer.Proto {
     }
 
     /// <summary>Field number for the "ifix_url" field.</summary>
-    public const int IfixUrlFieldNumber = 687;
+    public const int IfixUrlFieldNumber = 150;
     private string ifixUrl_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -374,7 +374,7 @@ namespace EggLink.DanhengServer.Proto {
     }
 
     /// <summary>Field number for the "ifix_version" field.</summary>
-    public const int IfixVersionFieldNumber = 150;
+    public const int IfixVersionFieldNumber = 687;
     private string ifixVersion_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1017,9 +1017,9 @@ namespace EggLink.DanhengServer.Proto {
         output.WriteRawTag(200, 5);
         output.WriteBool(HPLPAONDKDL);
       }
-      if (IfixVersion.Length != 0) {
+      if (IfixUrl.Length != 0) {
         output.WriteRawTag(178, 9);
-        output.WriteString(IfixVersion);
+        output.WriteString(IfixUrl);
       }
       mAKLPMCHNHB_.WriteTo(output, _repeated_mAKLPMCHNHB_codec);
       if (PILDDEJGNCP.Length != 0) {
@@ -1058,9 +1058,9 @@ namespace EggLink.DanhengServer.Proto {
         output.WriteRawTag(226, 42);
         output.WriteString(OANGAEHFOFH);
       }
-      if (IfixUrl.Length != 0) {
+      if (IfixVersion.Length != 0) {
         output.WriteRawTag(250, 42);
-        output.WriteString(IfixUrl);
+        output.WriteString(IfixVersion);
       }
       if (IBAKDLKDOPG.Length != 0) {
         output.WriteRawTag(234, 44);
@@ -1240,9 +1240,9 @@ namespace EggLink.DanhengServer.Proto {
         output.WriteRawTag(200, 5);
         output.WriteBool(HPLPAONDKDL);
       }
-      if (IfixVersion.Length != 0) {
+      if (IfixUrl.Length != 0) {
         output.WriteRawTag(178, 9);
-        output.WriteString(IfixVersion);
+        output.WriteString(IfixUrl);
       }
       mAKLPMCHNHB_.WriteTo(ref output, _repeated_mAKLPMCHNHB_codec);
       if (PILDDEJGNCP.Length != 0) {
@@ -1281,9 +1281,9 @@ namespace EggLink.DanhengServer.Proto {
         output.WriteRawTag(226, 42);
         output.WriteString(OANGAEHFOFH);
       }
-      if (IfixUrl.Length != 0) {
+      if (IfixVersion.Length != 0) {
         output.WriteRawTag(250, 42);
-        output.WriteString(IfixUrl);
+        output.WriteString(IfixVersion);
       }
       if (IBAKDLKDOPG.Length != 0) {
         output.WriteRawTag(234, 44);
@@ -1811,7 +1811,7 @@ namespace EggLink.DanhengServer.Proto {
             break;
           }
           case 1202: {
-            IfixVersion = input.ReadString();
+            IfixUrl = input.ReadString();
             break;
           }
           case 1530: {
@@ -1855,7 +1855,7 @@ namespace EggLink.DanhengServer.Proto {
             break;
           }
           case 5498: {
-            IfixUrl = input.ReadString();
+            IfixVersion = input.ReadString();
             break;
           }
           case 5738: {
@@ -2042,7 +2042,7 @@ namespace EggLink.DanhengServer.Proto {
             break;
           }
           case 1202: {
-            IfixVersion = input.ReadString();
+            IfixUrl = input.ReadString();
             break;
           }
           case 1530: {
@@ -2086,7 +2086,7 @@ namespace EggLink.DanhengServer.Proto {
             break;
           }
           case 5498: {
-            IfixUrl = input.ReadString();
+            IfixVersion = input.ReadString();
             break;
           }
           case 5738: {

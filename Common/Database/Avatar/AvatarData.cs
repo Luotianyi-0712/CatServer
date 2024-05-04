@@ -129,10 +129,20 @@ namespace EggLink.DanhengServer.Database.Avatar
         {
             return HeroId > 0 ? HeroId : AvatarId;
         }
+        
+        public int GetBaseAvatarId()
+        {
+            return HeroId > 0 ? 8001 : AvatarId;
+        }
 
         public int GetSpecialAvatarId()
         {
             return SpecialBaseAvatarId > 0 ? SpecialBaseAvatarId : GetAvatarId();
+        }
+
+        public int GetUniqueAvatarId()
+        {
+            return SpecialBaseAvatarId > 0 ? SpecialBaseAvatarId : (HeroId > 0 ? 8001 : AvatarId);
         }
 
         public Dictionary<int, int> GetSkillTree()
@@ -183,7 +193,7 @@ namespace EggLink.DanhengServer.Database.Avatar
         {
             var proto = new Proto.Avatar()
             {
-                BaseAvatarId = (uint)GetSpecialAvatarId(),
+                BaseAvatarId = (uint)GetUniqueAvatarId(),
                 Level = (uint)Level,
                 Exp = (uint)Exp,
                 Promotion = (uint)Promotion,
@@ -240,7 +250,7 @@ namespace EggLink.DanhengServer.Database.Avatar
                 },
                 Actor = new()
                 {
-                    BaseAvatarId = (uint)GetAvatarId(),
+                    BaseAvatarId = (uint)GetBaseAvatarId(),
                     AvatarType = avatarType
                 }
             };

@@ -332,7 +332,7 @@ namespace EggLink.DanhengServer.Game.Friend
                     ChatBubbleId = (uint)serverProfile.ChatBubbleId,
                     OnlineStatus = FriendOnlineStatus.Online,
                     Platform = PlatformType.Pc,
-                    Signature = "DanhengServer command executor",
+                    Signature = serverProfile.Signature,
                 },
                 IsRemarked = false, // IsMarked
                 RemarkName = ""

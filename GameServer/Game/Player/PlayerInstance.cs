@@ -66,6 +66,8 @@ namespace EggLink.DanhengServer.Game.Player
         public int NextBattleId { get; set; } = 0;
         public int CurRaidId { get; set; } = 0;
         public int OldEntryId { get; set; } = 0;
+        public Position? LastPos { get; set; }
+        public Position? LastRot { get; set; }
 
         #endregion
 
@@ -184,12 +186,21 @@ namespace EggLink.DanhengServer.Game.Player
 
         public void OnLogoutAsync()
         {
+            if (CurRaidId > 0)
+            {
+                EnterScene(OldEntryId, 0, false);
+                MoveTo(LastPos!, LastRot!);
+            }
+
             try
             {
                 DatabaseHelper.Instance?.UpdateInstance(LineupManager!.LineupData);
                 DatabaseHelper.Instance?.UpdateInstance(InventoryManager!.Data);
                 DatabaseHelper.Instance?.UpdateInstance(MissionManager!.Data);
                 DatabaseHelper.Instance?.UpdateInstance(AvatarManager!.AvatarData!);
+                DatabaseHelper.Instance?.UpdateInstance(FriendManager!.FriendData!);
+                DatabaseHelper.Instance?.UpdateInstance(MessageManager!.Data!);
+                DatabaseHelper.Instance?.UpdateInstance(ChessRogueManager!.ChessRogueNousData!);
                 DatabaseHelper.Instance?.UpdateInstance(GachaManager!.GachaData!);
                 DatabaseHelper.Instance?.UpdateInstance(Data);
                 DatabaseHelper.Instance?.UpdateInstance(PlayerUnlockData!);
@@ -452,7 +463,13 @@ namespace EggLink.DanhengServer.Game.Player
             Data.Pos = motion.Motion.Pos.ToPosition();
             Data.Rot = motion.Motion.Rot.ToPosition();
         }
-
+        
+        public void MoveTo(Position pos, Position rot)
+        {
+            Data.Pos = pos;
+            Data.Rot = rot;
+            SendPacket(new PacketSceneEntityMoveScNotify(this));
+        }
 
         public void LoadScene(int planeId, int floorId, int entryId, Position pos, Position rot, bool sendPacket)
         {
