@@ -388,7 +388,7 @@ namespace EggLink.DanhengServer.Game.Inventory
                 {
                     // switch
                     equipAvatar.Relic[slot] = oldItem.UniqueId;
-                    oldItem.EquipAvatar = equipAvatar.GetAvatarId();
+                    oldItem.EquipAvatar = equipAvatar.GetBaseAvatarId();
                     Player.SendPacket(new PacketPlayerSyncScNotify(equipAvatar, oldItem));
                 }
             } else
@@ -398,7 +398,7 @@ namespace EggLink.DanhengServer.Game.Inventory
                     oldItem.EquipAvatar = 0;
                 }
             }
-            itemData.EquipAvatar = avatarData.GetAvatarId();
+            itemData.EquipAvatar = avatarData.GetBaseAvatarId();
             avatarData.Relic[slot] = itemData.UniqueId;
             // save
             DatabaseHelper.Instance!.UpdateInstance(Data);
