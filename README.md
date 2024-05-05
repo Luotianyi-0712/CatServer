@@ -22,8 +22,8 @@
 - [√] **Scene** - Walking simulator, interaction, correct loading of entities
 - [√] **Basic character development** - Some minor bugs that don't significantly affect the experience
 - [√] **Quests** - Many quests involving the male protagonist have been completed. If you choose the female protagonist, you may get stuck in certain quests and need to be repaired
-- [√] **Friends** - There are many bugs Under development
-- [-] **Simulated Universe** - There are many bugs Under development
+- [√] **Friends** - There are many bugs and under development
+- [√] **Simulated Universe** - There are many bugs and under development
 
 - [ ] **More**  - Comming soon
 
