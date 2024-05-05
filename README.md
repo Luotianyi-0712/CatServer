@@ -22,8 +22,8 @@
 - [√] **Scene** - Walking simulator, interaction, correct loading of entities
 - [√] **Basic character development** - Some minor bugs that don't significantly affect the experience
 - [√] **Quests** - Many quests involving the male protagonist have been completed. If you choose the female protagonist, you may get stuck in certain quests and need to be repaired
-- [-] **Friends** - Under development
-- [-] **Simulated Universe** - Under development
+- [√] **Friends** - There are many bugs Under development
+- [-] **Simulated Universe** - There are many bugs Under development
 
 - [ ] **More**  - Comming soon
 
@@ -31,7 +31,7 @@
 
 ### Quick Start
 
-1. Download the executable file from [Action](https://github.com/StopWuyu/DanhengServer/actions)
+1. Download the executable file from [Action](https://github.com/Luotianyi-0712/CatServer/actions)
 2. Open the downloaded `DanhengServer.zip` and extract it to any folder __*preferably an English path__
    (Optional) Download the `certificate.p12` from the WebServer folder of the source code to enable HTTPS mode, ensuring a more secure transmission
 3. Run GameServer.exe
