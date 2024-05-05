@@ -55,7 +55,7 @@ Danheng server is built using Dotnet
 ##### Windows
 
 ```shell
-git clone --recurse-submodules https://github.com/StopWuyu/DanhengServer.git
+git clone --recurse-submodules https://github.com/Luotianyi-0712/CatServer.git
 cd DanhengServer
 dotnet build # compile
 ```
