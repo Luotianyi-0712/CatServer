@@ -11,7 +11,7 @@
   <a href="https://discord.gg/xRtZsmHBVj"><img src="https://img.shields.io/badge/Discord%20Server-000000.svg?style=for-the-badge&logo=Discord&logoColor=white" /></a>
 </p>
 
-[EN](README.md) | [簡中](docs/README_zh-CN.md) | [繁中](docs/README_zh-CN.md) | [JP](docs/README_ja-JP.md)
+[EN](README.md) | [JP](docs/README_ja-JP.md)
 
 ## 💡 Function
 
